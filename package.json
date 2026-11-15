@@ -1,0 +1,53 @@
+{
+  "name": "yt-mp3",
+  "productName": "Media Toolkit",
+  "version": "1.0.0",
+  "description": "Personal YouTube to MP3 converter and video optimizer",
+  "private": true,
+  "type": "module",
+  "main": "electron/main.js",
+  "scripts": {
+    "start": "vite build client && electron .",
+    "web": "vite build client && node server/index.js --web",
+    "dev": "concurrently -n server,client -c blue,green \"npm:server\" \"npm:client\"",
+    "server": "node --watch server/index.js",
+    "client": "vite client",
+    "build": "vite build client",
+    "dist": "vite build client && electron-builder"
+  },
+  "dependencies": {
+    "archiver": "^7.0.1",
+    "express": "^4.21.2"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.4",
+    "concurrently": "^9.1.2",
+    "electron": "^33.2.1",
+    "electron-builder": "^25.1.8",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "vite": "^6.0.7"
+  },
+  "build": {
+    "appId": "local.personal.ytmp3",
+    "productName": "Media Toolkit",
+    "files": [
+      "electron/**",
+      "server/**",
+      "client/dist/**",
+      "package.json"
+    ],
+    "directories": {
+      "output": "release"
+    },
+    "mac": {
+      "target": "dmg"
+    },
+    "win": {
+      "target": "nsis"
+    },
+    "linux": {
+      "target": "AppImage"
+    }
+  }
+}
